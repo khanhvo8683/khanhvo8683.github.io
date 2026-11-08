@@ -1,44 +1,40 @@
 [
   {
-    "id": "soc-homelab",
-    "category": "Homelab",
-    "title": "SOC Homelab",
-    "thumb": "[screenshot: SIEM dashboard or network diagram]",
-    "image": "",
-    "summary": "A multi-phase build for practicing detection and response: a segmented network, a SIEM collecting logs, an IDS watching traffic, DNS filtering and secure remote access.",
-    "tags": ["SIEM", "IDS", "DNS filtering", "Network segmentation"],
-    "overview": "I built this lab to practice the daily work of a SOC analyst on infrastructure I control: collecting logs, watching network traffic, tuning alerts and investigating what shows up. [Add one or two sentences on your goal and how long it took.]",
-    "pointsLabel": "What's inside",
-    "points": [
-      { "head": "Network segmentation", "body": "Separate zones so lab machines, management and monitoring stay isolated. [Add your layout.]" },
-      { "head": "SIEM", "body": "Central log collection and search for investigating events. [Name the platform and log sources.]" },
-      { "head": "IDS", "body": "Network traffic monitoring with alerts. [Name the tool and example rules.]" },
-      { "head": "DNS filtering", "body": "Blocking and logging DNS lookups for visibility. [Name the tool.]" },
-      { "head": "Remote access", "body": "Secure access to the lab from outside. [Describe the setup.]" }
+    "id": "phishguard",
+    "category": "Detection tool",
+    "title": "PhishGuard Pro",
+    "thumb": "",
+    "image": "projects/phishguard.png",
+    "alt": "PhishGuard Pro URL Analysis showing a 100 out of 100 critical risk score for a phishing link",
+    "summary": "A phishing URL triage tool. Paste a link and get a 0 to 100 risk score, the redirect chain, reputation from five sources and a sandbox screenshot, plus defanged IOCs and starter Sigma, Splunk and Sentinel queries.",
+    "tags": [
+      "Phishing analysis",
+      "Cloudflare Workers",
+      "urlscan.io",
+      "MITRE T1566.002"
     ],
-    "outcomeLabel": "Outcome and lessons",
-    "outcome": "[What you detected, what broke, what you would change next.]",
-    "writeupUrl": "",
-    "githubUrl": ""
+    "demoUrl": "https://khanhvo8683.github.io/phishguard/",
+    "sourceUrl": "https://github.com/khanhvo8683/phishguard",
+    "driveUrl": "https://drive.google.com/drive/folders/1JaoV1ejGIKh-kHlyM17GyrSM5jhN0uFj?usp=sharing",
+    "driveLabel": "Write-ups on Drive"
   },
   {
     "id": "esp8266-power-control",
-    "category": "Hardware",
+    "category": "Home lab",
     "title": "Wi-Fi Remote PC Power Control",
     "thumb": "[photo: finished ESP8266 board]",
-    "image": "",
-    "summary": "An ESP8266-based board that powers a PC on and off over Wi-Fi, built and documented end to end for my own home lab.",
-    "tags": ["ESP8266", "Electronics", "Documentation"],
-    "overview": "A small board that lets me press the power button of a lab PC remotely over Wi-Fi, so machines can stay off until I need them. [Add why you built it and how you use it.]",
-    "pointsLabel": "What's inside",
-    "points": [
-      { "head": "Hardware", "body": "ESP8266 board wired to the PC power header. [List parts and wiring approach.]" },
-      { "head": "Firmware", "body": "Connects to Wi-Fi and triggers the power signal on request. [Describe how it is controlled.]" },
-      { "head": "Documentation", "body": "Build notes and wiring written up for personal reference. [Link the docs.]" }
+    "image": "projects/esp8266.png",
+    "summary": "An ESP8266-based Wi-Fi board that lets me power a PC on, off and reset it remotely. I installed it in my home lab PC and wrote the setup guide: front-panel wiring, pass-through to the motherboard and Wi-Fi configuration.",
+    "tags": [
+      "ESP8266",
+      "Hardware installation",
+      "Wi-Fi",
+      "Documentation"
     ],
-    "outcomeLabel": "Outcome and lessons",
-    "outcome": "[What worked, what you fixed, what you would improve.]",
-    "writeupUrl": "",
-    "githubUrl": ""
+    "alt": "The ESP8266 Wi-Fi remote power controller board, with INPUT and OUTPUT front-panel headers",
+    "demoUrl": "",
+    "sourceUrl": "",
+    "driveUrl": "https://drive.google.com/file/d/1_PtlzRXL58WMYNGtIVwrjj8wOLV254XB/view?usp=sharing",
+    "driveLabel": "Write-up on Drive"
   }
 ]

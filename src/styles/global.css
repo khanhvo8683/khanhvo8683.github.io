@@ -188,14 +188,15 @@ body:has(dialog[open]) { overflow: hidden; }
 
 /* ---------- projects ---------- */
 .pcard { background: var(--card-deep); border: 1px solid var(--line-2); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 18px; }
-.pcard .thumb { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; }
-.thumb .placeholder, .thumb img, .modal-thumb { width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; }
-.thumb img, .modal-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 12px; border: 1px solid var(--line-2); }
+.pcard .thumb { display: block; width: 100%; }
+.thumb .placeholder, .thumb img { width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; }
+.thumb img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 12px; border: 1px solid var(--line-2); }
 .pcard .info { padding: 0 10px 10px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
 .pcard .cat { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; }
 .pcard .ptitle { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
 .pcard .psum { color: var(--muted); font-size: 15px; }
-.link-btn { margin-top: auto; align-self: flex-start; padding: 8px 0 0; border: 0; background: transparent; color: var(--link); font-size: 15px; font-weight: 600; cursor: pointer; }
+.plinks { margin-top: auto; padding-top: 8px; display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.link-btn { color: var(--link); font-size: 15px; font-weight: 600; text-decoration: none; }
 .link-btn:hover { color: var(--chip-text); }
 .next { border: 1px dashed var(--line-3); border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 14px; justify-content: center; }
 .next .label { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
@@ -252,9 +253,36 @@ a.item:hover { background: #111c3a; color: var(--text); }
 .item .go.off { color: var(--dim); }
 .empty { padding: 26px; color: var(--muted); font-size: 15px; }
 
+/* lab rows: the title link covers the whole row; the badge sits above it */
+.item { position: relative; }
+.item:has(a.stretch):hover { background: #111c3a; }
+a.stretch { color: var(--text); text-decoration: none; }
+a.stretch:hover { color: var(--chip-text); }
+a.stretch::after { content: ''; position: absolute; inset: 0; }
+.item .side { display: flex; align-items: center; gap: 20px; }
+.badge-link { position: relative; z-index: 1; display: block; width: 132px; flex: none; }
+.badge-link img { display: block; width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line-2); }
+.badge-link:hover img { border-color: var(--accent); }
+
 /* ---------- contact + footer ---------- */
 .contact { max-width: 1160px; margin: 0 auto; padding: 80px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px; }
 .contact .copy { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
 .contact .copy p { color: var(--muted); font-size: 16px; max-width: 520px; }
 .contact .btns { display: flex; flex-wrap: wrap; gap: 14px; }
 .footer-inner { max-width: 1160px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-family: var(--mono); font-size: 12px; color: var(--dim); }
+
+/* ---------- experience timeline ---------- */
+.timeline { list-style: none; display: flex; flex-direction: column; gap: 20px; border-left: 1px solid var(--line-3); margin-left: 12px; padding-left: 32px; }
+.job { position: relative; background: var(--card); border: 1px solid var(--line-2); border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 14px; }
+.job .dot { position: absolute; left: -45px; top: 28px; width: 17px; height: 17px; box-sizing: content-box; border-radius: 50%; background: var(--accent); border: 4px solid var(--bg); }
+.job-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }
+.job-title { font-size: 20px; font-weight: 600; }
+.job-type { color: var(--muted); font-weight: 400; }
+.job-period { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.job-org { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+.job-list { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; color: var(--soft); font-size: 15px; }
+@media (max-width: 600px) { .timeline { margin-left: 6px; padding-left: 22px; } .job .dot { left: -35px; } .job { padding: 20px; } }
+
+.more-wrap { display: flex; justify-content: center; padding: 18px 26px; }
+.more-wrap [hidden], .list .item[hidden] { display: none !important; }
+.more-wrap:has(button[hidden]) { display: none; }

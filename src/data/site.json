@@ -1,9 +1,9 @@
 {
-  "name": "Khanh",
-  "title": "Khanh | SOC Analyst Portfolio",
+  "name": "Khanh Vo",
+  "title": "Khanh Vo | SOC Analyst Portfolio",
   "description": "Information Security student at USF aiming for a Blue Team / SOC Analyst role. Certifications, projects, daily lab write-ups and articles.",
   "role": "Blue Team / SOC Analyst",
-  "headline": "I'm Khanh. I'm learning to catch what attackers leave behind.",
+  "headline": "I'm Khanh Vo. I'm learning to catch what attackers leave behind.",
   "intro": "Final-year Information Security student at the University of South Florida with a data science background. I build, break and monitor things in my homelab, and document every lab I finish.",
   "profile": [
     { "label": "Education", "value": "B.S. Information Security, USF" },
@@ -21,8 +21,8 @@
   "contactText": "I'm graduating in December 2026 and looking for entry-level Blue Team and SOC Analyst positions. Based in Seattle, WA.",
   "email": "khanhvo8683@gmail.com",
   "links": {
-    "linkedin": "",
-    "github": "",
+    "linkedin": "https://www.linkedin.com/in/khanh-vo-8496b9378/",
+    "github": "https://github.com/khanhvo8683",
     "medium": "",
     "resume": ""
   },

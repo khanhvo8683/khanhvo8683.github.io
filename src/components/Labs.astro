@@ -1,9 +1,15 @@
 ---
 import labs from '../data/labs.json';
+import { asset } from '../utils';
 
 // Newest lab first in labs.json. The day number counts down automatically.
+// Optional per-lab field "badge": path of a completion-certificate image in /public.
 const total = labs.length;
-const items = labs.map((l, i) => ({ ...l, day: String(total - i).padStart(2, '0') }));
+const items = labs.map((l, i) => ({
+  ...l,
+  day: String(total - i).padStart(2, '0'),
+  badge: (l as { badge?: string }).badge ?? '',
+}));
 const categories = ['All', ...new Set(labs.map((l) => l.category))];
 const count = (c: string) => (c === 'All' ? total : labs.filter((l) => l.category === c).length);
 ---
@@ -14,8 +20,8 @@ const count = (c: string) => (c === 'All' ? total : labs.filter((l) => l.categor
       <div class="eyebrow">Lab write-ups</div>
       <h2 class="h2">Hands-on, documented.</h2>
       <p class="lede">
-        One lab a day. Each write-up opens in Google Drive with the scenario, my approach, screenshots and what I'd do
-        differently. Methodology only: no exam content, flags or answer keys.
+        A short log of the labs I work through: what the scenario was, the approach I took and the tools I used.
+        Training-lab write-ups stay private, so this list shows methodology only: no exam content, flags or answer keys.
       </p>
     </div>
 
@@ -28,49 +34,62 @@ const count = (c: string) => (c === 'All' ? total : labs.filter((l) => l.categor
     <div class="list">
       {items.map((l) => {
         const meta = [l.platform, l.date].filter(Boolean).join(' / ');
-        const inner = (
-          <>
+        return (
+          <div class="item" data-lab data-cat={l.category}>
             <div class="main">
               <div class="day">{l.day}</div>
               <div class="text">
-                <div class="it">{l.title}</div>
+                {l.url ? (
+                  <a class="it stretch" href={l.url} target="_blank" rel="noopener noreferrer">{l.title}</a>
+                ) : (
+                  <div class="it">{l.title}</div>
+                )}
                 <div class="im">{meta}</div>
                 <div class="is">{l.summary}</div>
                 <div class="tags">{l.tags.map((t) => <span class="tag">{t}</span>)}</div>
               </div>
             </div>
-            <span class={`go ${l.url ? '' : 'off'}`}>{l.url ? 'read on Drive ↗' : 'write-up coming soon'}</span>
-          </>
-        );
-        return l.url ? (
-          <a class="item" data-lab data-cat={l.category} href={l.url} target="_blank" rel="noopener noreferrer">{inner}</a>
-        ) : (
-          <div class="item" data-lab data-cat={l.category}>{inner}</div>
+            <div class="side">
+              {l.badge && (
+                <a class="badge-link" href={asset(l.badge)} target="_blank" rel="noopener noreferrer" aria-label={`Open completion certificate for ${l.title}`}>
+                  <img src={asset(l.badge)} alt="" loading="lazy" />
+                </a>
+              )}
+              {l.url && <span class="go">read on Drive ↗</span>}
+            </div>
+          </div>
         );
       })}
-      <div class="item">
-        <div class="main">
-          <div class="text">
-            <div class="it" style="color: var(--muted)">[Next lab]</div>
-            <div class="im">new write-up every day</div>
-          </div>
-        </div>
-        <span class="go off">coming soon</span>
-      </div>
+      <div class="more-wrap"><button class="chip" id="labs-more" hidden></button></div>
     </div>
   </div>
 </section>
 
 <script>
+  const LIMIT = 3;
   const chips = document.querySelectorAll<HTMLButtonElement>('.chip[data-cat]');
   const rows = document.querySelectorAll<HTMLElement>('[data-lab]');
+  const more = document.getElementById('labs-more') as HTMLButtonElement;
+  let cat = 'All';
+  let open = false;
+  function render() {
+    let n = 0;
+    rows.forEach((r) => {
+      if (cat !== 'All' && r.dataset.cat !== cat) { r.hidden = true; return; }
+      n++;
+      r.hidden = !open && n > LIMIT;
+    });
+    more.hidden = n <= LIMIT;
+    more.textContent = open ? 'Show less' : `Show more (${n - LIMIT})`;
+  }
   chips.forEach((chip) => {
     chip.addEventListener('click', () => {
-      const cat = chip.dataset.cat;
+      cat = chip.dataset.cat ?? 'All';
+      open = false;
       chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
-      rows.forEach((r) => {
-        r.hidden = cat !== 'All' && r.dataset.cat !== cat;
-      });
+      render();
     });
   });
+  more.addEventListener('click', () => { open = !open; render(); });
+  render();
 </script>
